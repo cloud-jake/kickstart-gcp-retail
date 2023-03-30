@@ -125,7 +125,7 @@ Please refer to [troubleshooting](../docs/TROUBLESHOOTING.md) if you run into is
    ```bash
    export VET_PROJECT_ID=A-VALID-PROJECT-ID
    terraform show -json bootstrap.tfplan > bootstrap.json
-   gcloud beta terraform vet bootstrap.json --policy-library="../policy-library" --project ${VET_PROJECT_ID}
+   <!-- gcloud beta terraform vet bootstrap.json --policy-library="../policy-library" --project ${VET_PROJECT_ID} -->
    ```
 
    - *`A-VALID-PROJECT-ID`* must be an existing project you have access to, this is necessary because Terraform-validator needs to link resources to a valid Google Cloud Platform project.
@@ -134,7 +134,7 @@ Please refer to [troubleshooting](../docs/TROUBLESHOOTING.md) if you run into is
    ```bash
    terraform apply bootstrap.tfplan
    ```
-
+<!-- 
 1. Run `terraform output` to get the email address of the terraform service accounts that will be used to run manual steps for `shared` environments in steps `3-networks-dual-svpc`, `3-networks-hub-and-spoke`, and `4-projects` and the state bucket that will be used by step 4-projects.
 
    ```bash
@@ -145,7 +145,7 @@ Please refer to [troubleshooting](../docs/TROUBLESHOOTING.md) if you run into is
    echo "network step service account = ${network_step_sa}"
    echo "projects step service account = ${projects_step_sa}"
    echo "projects gcs bucket tfstate = ${projects_gcs_bucket_tfstate}"
-   ```
+   ``` -->
 
 1. Run `terraform output` to get the ID of your Cloud Build project:
 

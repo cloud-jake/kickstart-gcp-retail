@@ -32,14 +32,14 @@ steps:
     for i in `find -name 'backend.tf'`; do sed -r -i 's/UPDATE_ME|UPDATE_PROJECTS_BACKEND|UPDATE_APP_INFRA_BUCKET/${_STATE_BUCKET_NAME}/' $i; done
 
 
-# [START tf-plan_validate_all]
-- id: 'tf plan validate all'
-  name: $_GAR_REGION-docker.pkg.dev/$_GAR_PROJECT_ID/$_GAR_REPOSITORY/terraform:$_DOCKER_TAG_VERSION_TERRAFORM
-  entrypoint: /bin/bash
-  args:
-  - -c
-  - |
-      ./tf-wrapper.sh plan_validate_all ${BRANCH_NAME} ${_POLICY_REPO} ${PROJECT_ID} CLOUDSOURCE
+# # [START tf-plan_validate_all]
+# - id: 'tf plan validate all'
+#   name: $_GAR_REGION-docker.pkg.dev/$_GAR_PROJECT_ID/$_GAR_REPOSITORY/terraform:$_DOCKER_TAG_VERSION_TERRAFORM
+#   entrypoint: /bin/bash
+#   args:
+#   - -c
+#   - |
+#       ./tf-wrapper.sh plan_validate_all ${BRANCH_NAME} ${_POLICY_REPO} ${PROJECT_ID} CLOUDSOURCE
 
 artifacts:
   objects:

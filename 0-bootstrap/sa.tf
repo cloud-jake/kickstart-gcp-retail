@@ -21,10 +21,7 @@ locals {
 
   granular_sa = {
     "bootstrap" = "Foundation Bootstrap SA. Managed by Terraform.",
-    "org"       = "Foundation Organization SA. Managed by Terraform.",
-    "env"       = "Foundation Environment SA. Managed by Terraform.",
-    "net"       = "Foundation Network SA. Managed by Terraform.",
-    "proj"      = "Foundation Projects SA. Managed by Terraform.",
+    "retail"    = "Foundation Retail Search SA. Managed by Terraform.",
   }
 
   common_roles = [
@@ -37,7 +34,7 @@ locals {
       "roles/accesscontextmanager.policyAdmin",
       "roles/serviceusage.serviceUsageConsumer",
     ], local.common_roles)),
-    "org" = distinct(concat([
+    "retail" = distinct(concat([
       "roles/orgpolicy.policyAdmin",
       "roles/logging.configWriter",
       "roles/resourcemanager.organizationAdmin",
@@ -48,45 +45,45 @@ locals {
       "roles/resourcemanager.tagAdmin",
       "roles/resourcemanager.tagUser",
     ], local.common_roles)),
-    "env" = distinct(concat([
-      "roles/resourcemanager.tagUser",
-    ], local.common_roles)),
-    "net" = distinct(concat([
-      "roles/accesscontextmanager.policyAdmin",
-      "roles/compute.xpnAdmin",
-    ], local.common_roles)),
-    "proj" = distinct(concat([
-      "roles/accesscontextmanager.policyAdmin",
-      "roles/resourcemanager.organizationAdmin",
-      "roles/serviceusage.serviceUsageConsumer",
-    ], local.common_roles)),
+    # "env" = distinct(concat([
+    #   "roles/resourcemanager.tagUser",
+    # ], local.common_roles)),
+    # "net" = distinct(concat([
+    #   "roles/accesscontextmanager.policyAdmin",
+    #   "roles/compute.xpnAdmin",
+    # ], local.common_roles)),
+    # "proj" = distinct(concat([
+    #   "roles/accesscontextmanager.policyAdmin",
+    #   "roles/resourcemanager.organizationAdmin",
+    #   "roles/serviceusage.serviceUsageConsumer",
+    # ], local.common_roles)),
   }
 
   granular_sa_parent_level_roles = {
     "bootstrap" = [
       "roles/resourcemanager.folderAdmin",
     ],
-    "org" = [
+    "retail" = [
       "roles/resourcemanager.folderAdmin",
     ],
-    "env" = [
-      "roles/resourcemanager.folderAdmin"
-    ],
-    "net" = [
-      "roles/resourcemanager.folderViewer",
-      "roles/compute.networkAdmin",
-      "roles/compute.securityAdmin",
-      "roles/compute.orgSecurityPolicyAdmin",
-      "roles/compute.orgSecurityResourceAdmin",
-      "roles/dns.admin",
-    ],
-    "proj" = [
-      "roles/resourcemanager.folderViewer",
-      "roles/resourcemanager.folderIamAdmin",
-      "roles/artifactregistry.admin",
-      "roles/compute.networkAdmin",
-      "roles/compute.xpnAdmin",
-    ],
+    # "env" = [
+    #   "roles/resourcemanager.folderAdmin"
+    # ],
+    # "net" = [
+    #   "roles/resourcemanager.folderViewer",
+    #   "roles/compute.networkAdmin",
+    #   "roles/compute.securityAdmin",
+    #   "roles/compute.orgSecurityPolicyAdmin",
+    #   "roles/compute.orgSecurityResourceAdmin",
+    #   "roles/dns.admin",
+    # ],
+    # "proj" = [
+    #   "roles/resourcemanager.folderViewer",
+    #   "roles/resourcemanager.folderIamAdmin",
+    #   "roles/artifactregistry.admin",
+    #   "roles/compute.networkAdmin",
+    #   "roles/compute.xpnAdmin",
+    # ],
   }
 
   // Roles required to manage resources in the Seed project
@@ -96,18 +93,18 @@ locals {
       "roles/iam.serviceAccountAdmin",
       "roles/resourcemanager.projectDeleter",
     ],
-    "org" = [
+    "retail" = [
       "roles/storage.objectAdmin",
     ],
-    "env" = [
-      "roles/storage.objectAdmin"
-    ],
-    "net" = [
-      "roles/storage.objectAdmin",
-    ],
-    "proj" = [
-      "roles/storage.objectAdmin",
-    ],
+    # "env" = [
+    #   "roles/storage.objectAdmin"
+    # ],
+    # "net" = [
+    #   "roles/storage.objectAdmin",
+    # ],
+    # "proj" = [
+    #   "roles/storage.objectAdmin",
+    # ],
   }
 
   // Roles required to manage resources in the CI/CD project

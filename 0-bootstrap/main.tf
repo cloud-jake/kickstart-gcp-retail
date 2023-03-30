@@ -43,8 +43,10 @@ resource "google_folder" "bootstrap" {
 }
 
 module "seed_bootstrap" {
-  source  = "terraform-google-modules/bootstrap/google"
-  version = "~> 6.3"
+  # source  = "terraform-google-modules/bootstrap/google"
+  # version = "~> 6.3"
+
+  source    = "./modules/seed_bootstrap"
 
   org_id                         = var.org_id
   folder_id                      = google_folder.bootstrap.id

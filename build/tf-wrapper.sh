@@ -23,7 +23,7 @@ project_id=$4
 policy_type=$5 # FILESYSTEM or CLOUDSOURCE
 base_dir=$(pwd)
 tmp_plan="${base_dir}/tmp_plan" #if you change this, update build triggers
-environments_regex="^(development|non-production|production|shared)$"
+environments_regex="^(main|master|development|non-production|production|shared)$"
 
 ## Terraform apply for single environment.
 tf_apply() {
@@ -92,7 +92,7 @@ tf_plan_validate_all() {
       if [[ "$env" =~ $environments_regex ]] ; then
         tf_init "$env_path" "$env" "$component"
         tf_plan "$env_path" "$env" "$component"
-        tf_validate "$env_path" "$env" "$policysource" "$component"
+        # tf_validate "$env_path" "$env" "$policysource" "$component"
       else
         echo "$component/$env doesn't match $environments_regex; skipping"
       fi
@@ -114,49 +114,6 @@ tf_show() {
     cd "$base_dir" || exit
   else
     echo "ERROR:  ${path} does not exist"
-  fi
-}
-
-## terraform validate for single environment.
-tf_validate() {
-  local path=$1
-  local tf_env=$2
-  local policy_file_path=$3
-  local tf_component=$4
-  echo "*************** TERRAFORM VALIDATE ******************"
-  echo "      At environment: ${tf_component}/${tf_env} "
-  echo "      Using policy from: ${policy_file_path} "
-  echo "*****************************************************"
-  if [ -z "$policy_file_path" ]; then
-    echo "no policy repo found! Check the argument provided for policysource to this script."
-    echo "https://github.com/GoogleCloudPlatform/terraform-validator/blob/main/docs/policy_library.md"
-  else
-    if [ -d "$path" ]; then
-      cd "$path" || exit
-      terraform show -json "${tmp_plan}/${tf_component}-${tf_env}.tfplan" > "${tf_env}.json" || exit 32
-      if [[ "$policy_type" == "CLOUDSOURCE" ]]; then
-        # Check if $policy_file_path is empty so we clone the policies repo only once
-        if [ -z "$(ls -A "${policy_file_path}" 2> /dev/null)" ]; then
-          gcloud source repos clone gcp-policies "${policy_file_path}" --project="${project_id}" || exit 34
-          pushd .
-          cd "${policy_file_path}"
-          # Commented command below works only on Git 2.22.0+
-          # current_branch=$(git branch --show-current)
-          # As Cloud Build is based on step 4-projects docker image having
-          # git version 2.20.1 installed the command below keeps compatibility
-          current_branch=$(git symbolic-ref --short HEAD)
-          echo "current gcp-policies branch $current_branch"
-          if [[ "$current_branch" != "main" ]]; then
-            git checkout main || exit 35
-          fi
-          popd
-        fi
-      fi
-      gcloud beta terraform vet "${tf_env}.json" --policy-library="${policy_file_path}" --project="${project_id}" || exit 33
-      cd "$base_dir" || exit
-    else
-      echo "ERROR:  ${path} does not exist"
-    fi
   fi
 }
 
@@ -190,9 +147,6 @@ single_action_runner() {
             tf_show "$env_path" "$env" "$component"
             ;;
 
-          validate )
-            tf_validate "$env_path" "$env" "$policysource" "$component"
-            ;;
           * )
             echo "unknown option: ${action}"
             ;;

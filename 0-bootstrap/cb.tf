@@ -15,6 +15,7 @@
  */
 
 locals {
+  
   // terraform version image configuration
   terraform_version = "1.3.0"
   // The version of the terraform docker image to be used in the workspace builds
@@ -31,22 +32,22 @@ locals {
       source       = "gcp-bootstrap",
       state_bucket = local.default_state_bucket_self_link,
     },
-    "org" = {
-      source       = "gcp-org",
+    "retail" = {
+      source       = "gcp-retail",
       state_bucket = local.default_state_bucket_self_link,
     },
-    "env" = {
-      source       = "gcp-environments",
-      state_bucket = local.default_state_bucket_self_link,
-    },
-    "net" = {
-      source       = "gcp-networks",
-      state_bucket = local.default_state_bucket_self_link,
-    },
-    "proj" = {
-      source       = "gcp-projects",
-      state_bucket = local.gcp_projects_state_bucket_self_link,
-    },
+    # "env" = {
+    #   source       = "gcp-environments",
+    #   state_bucket = local.default_state_bucket_self_link,
+    # },
+    # "net" = {
+    #   source       = "gcp-networks",
+    #   state_bucket = local.default_state_bucket_self_link,
+    # },
+    # "proj" = {
+    #   source       = "gcp-projects",
+    #   state_bucket = local.gcp_projects_state_bucket_self_link,
+    # },
   }
 
   cloud_source_repos = [for v in local.cb_config : v.source]
@@ -77,8 +78,11 @@ module "gcp_projects_state_bucket" {
 }
 
 module "tf_source" {
-  source  = "terraform-google-modules/bootstrap/google//modules/tf_cloudbuild_source"
-  version = "~> 6.4"
+
+  # source  = "terraform-google-modules/bootstrap/google//modules/tf_cloudbuild_source"
+  # version = "~> 6.4"
+
+  source = "./modules/tf_source"
 
   org_id                = var.org_id
   folder_id             = google_folder.bootstrap.id
@@ -224,7 +228,8 @@ module "tf_workspace" {
     "_DOCKER_TAG_VERSION_TERRAFORM" = local.docker_tag_version_terraform
   }
 
-  tf_apply_branches = ["development", "non\\-production", "production"]
+  # "development", "non\\-production", "production"
+  tf_apply_branches = ["main"]
 
   depends_on = [
     module.tf_source,
