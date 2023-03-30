@@ -12,3 +12,13 @@ terraform {
     }
   }
 }
+
+provider "google" {
+  user_project_override = true
+  billing_project       = "policy-vetting"
+}
+
+provider "google-beta" {
+  user_project_override = true
+  billing_project       = "policy-vetting"
+}
