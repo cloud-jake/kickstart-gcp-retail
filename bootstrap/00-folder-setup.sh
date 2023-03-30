@@ -9,19 +9,19 @@
 
 # Name of Folder (3-30 characters)
 #       123456789012345678901234567890
-FOLDER="nnnnnnnn-Product-Discovery"
+FOLDER="retail"
 
 # Organization Number
-ORGANIZATION_ID=""
+ORGANIZATION_ID="777651172681"
 
 
 # Principals for IAM roles
-id1=""
-id2=""
+id1="gcp-devops@kinandcartacloud.com"
+id2="gcp-developers@kinandcartacloud.com"
 
 # Principal Type
-type="user"
-#type="group"
+#type="user"
+type="group"
 
 
 #####

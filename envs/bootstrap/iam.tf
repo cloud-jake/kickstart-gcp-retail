@@ -1,10 +1,4 @@
-
 ### Assign Project Creator role to Principals
-# roles/resourcemanager.projectCreator
-resource "google_folder_iam_policy" "folder_project_creators" {
-  folder      = "folders/${var.folder_id}"
-  policy_data = data.google_iam_policy.role_resourcemgr_prjcreator.policy_data
-}
 
 data "google_iam_policy" "role_resourcemgr_prjcreator" {
   binding {
@@ -15,4 +9,10 @@ data "google_iam_policy" "role_resourcemgr_prjcreator" {
       "${var.type}:${var.id2}"
     ]
   }
+}
+
+# roles/resourcemanager.projectCreator
+resource "google_folder_iam_policy" "folder_project_creators" {
+  folder      = "folders/${var.folder_id}"
+  policy_data = data.google_iam_policy.role_resourcemgr_prjcreator.policy_data
 }

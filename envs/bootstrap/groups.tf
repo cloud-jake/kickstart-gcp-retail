@@ -9,7 +9,7 @@ module "grp_retail_admin" {
   source  = "terraform-google-modules/group/google"
   version = "~> 0.1"
 
-  count        = var.create_retail_groups ? 1 : 0
+  count = var.create_retail_groups ? 1 : 0
 
   id           = "retail-admin@${var.domain}"
   display_name = "retail-admin"
@@ -24,7 +24,7 @@ module "grp_retail_editor" {
   source  = "terraform-google-modules/group/google"
   version = "~> 0.1"
 
-  count        = var.create_retail_groups ? 1 : 0
+  count = var.create_retail_groups ? 1 : 0
 
   id           = "retail-editor@${var.domain}"
   display_name = "retail-editor"
@@ -39,7 +39,7 @@ module "grp_retail_viewer" {
   source  = "terraform-google-modules/group/google"
   version = "~> 0.1"
 
-  count        = var.create_retail_groups ? 1 : 0
+  count = var.create_retail_groups ? 1 : 0
 
   id           = "retail-viewer@${var.domain}"
   display_name = "retail-viewer"
@@ -56,7 +56,7 @@ module "grp_retail_merchandising" {
   source  = "terraform-google-modules/group/google"
   version = "~> 0.1"
 
-  count        = var.create_retail_groups ? 1 : 0
+  count = var.create_retail_groups ? 1 : 0
 
   id           = "retail-merchandising@${var.domain}"
   display_name = "retail-merchandising"
@@ -79,7 +79,7 @@ module "grp_retail_developer" {
   source  = "terraform-google-modules/group/google"
   version = "~> 0.1"
 
-  count        = var.create_retail_groups ? 1 : 0
+  count = var.create_retail_groups ? 1 : 0
 
   id           = "retail-developer@${var.domain}"
   display_name = "retail-developer"
@@ -99,7 +99,7 @@ module "grp_retail_operations" {
   source  = "terraform-google-modules/group/google"
   version = "~> 0.1"
 
-  count        = var.create_retail_groups ? 1 : 0
+  count = var.create_retail_groups ? 1 : 0
 
   id           = "retail-operations@${var.domain}"
   display_name = "retail-operations"
