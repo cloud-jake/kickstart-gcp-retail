@@ -8,7 +8,7 @@ resource "google_project" "base" {
 resource "google_project_service" "base_services" {
   for_each = toset(var.services)
 
-  project                    = google_project.base.id
+  project                    = google_project.base.project_id
   service                    = each.value
   disable_dependent_services = true
 

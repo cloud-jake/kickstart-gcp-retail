@@ -6,7 +6,7 @@
 #    roles/bigquery.dataEditor
 #    -User Events Table (BigQuery)
 resource "google_project_iam_binding" "iam_uep_bq" {
-  project = google_project.base.id
+  project = google_project.base.project_id
   role    = "roles/bigquery.dataEditor"
   members = ["serviceAccount:${google_service_account.user_event_pipeline.email}"]
 }
@@ -14,7 +14,7 @@ resource "google_project_iam_binding" "iam_uep_bq" {
 #    roles/retail.editor
 #    -Retail Search Project
 resource "google_project_iam_binding" "iam_uep_re" {
-  project = google_project.base.id
+  project = google_project.base.project_id
   role    = "roles/retail.editor"
   members = ["serviceAccount:${google_service_account.user_event_pipeline.email}"]
 }
@@ -27,7 +27,7 @@ resource "google_project_iam_binding" "iam_uep_re" {
 #    roles/retail.viewer
 #    -Retail Search Project 
 resource "google_project_iam_binding" "iam_uep_rv" {
-  project = google_project.base.id
+  project = google_project.base.project_id
   role    = "roles/retail.viewer"
   members = ["serviceAccount:${google_service_account.search.email}"]
 }
@@ -41,7 +41,7 @@ resource "google_project_iam_binding" "iam_uep_rv" {
 #    -Catalog Table (BigQuery)
 #    -Audit Table (BigQuery)
 resource "google_project_iam_binding" "iam_rs_im_de" {
-  project = google_project.base.id
+  project = google_project.base.project_id
   role    = "roles/bigquery.dataEditor"
   members = ["serviceAccount:${google_service_account.index_manager.email}"]
 }
@@ -49,7 +49,7 @@ resource "google_project_iam_binding" "iam_rs_im_de" {
 #   roles/retail.editor
 #   -Retail Search Project 
 resource "google_project_iam_binding" "iam_rs_im_re" {
-  project = google_project.base.id
+  project = google_project.base.project_id
   role    = "roles/retail.editor"
   members = ["serviceAccount:${google_service_account.index_manager.email}"]
 }
@@ -57,7 +57,7 @@ resource "google_project_iam_binding" "iam_rs_im_re" {
 #   roles/pubsub.subscriber
 #   -Catalog Event Topic
 resource "google_project_iam_binding" "iam_rs_im_pss" {
-  project = google_project.base.id
+  project = google_project.base.project_id
   role    = "roles/pubsub.subscriber"
   members = ["serviceAccount:${google_service_account.index_manager.email}"]
 }
